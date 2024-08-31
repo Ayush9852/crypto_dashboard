@@ -1,59 +1,136 @@
-.list-row{
-    display:flex;
+.list-row {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
-    margin: 1.5rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-}
-
-.list-row:hover{
-    background-color: var(--darkgrey);
+    margin: 1.5rem auto; /* Center margin */
+    padding: 1rem 2rem;
+    width: 90%; /* Consistent width */
+    border-radius: 0.8rem; /* Unified border-radius */
+    cursor: pointer;
     transition: all 0.3s;
-
-}
-
-.list-row td{
+  }
+  
+  .list-row:hover {
+    background-color: var(--darkgrey);
+  }
+  
+  .list-row td {
+    width: 20%; /* Width consistency */
     text-align: left;
-    width:18%;
-}
-
-.td-image{
+  }
+  
+  .td-image {
     width: 3rem !important;
-    margin-right: 2rem;
-}
-
-.td-align-center{
+    margin-right: 2rem; /* Adjusted for spacing */
+  }
+  
+  .td-align-center {
     text-align: center;
-}
-
-.td-align-right{
+  }
+  
+  .td-align-right {
     text-align: right;
-}
-
-.mobile-td-mkt{
+  }
+  
+  .td-img {
+    width: 3rem !important; /* Image size consistency */
+    margin-right: 1rem;
+  }
+  
+  .td-info {
+    width: 10rem !important; /* Info column width */
+  }
+  
+  .td-current-price {
+    width: 6rem !important;
+    text-align: right !important;
+  }
+  
+  .td-totalVolume,
+  .td-marketCap {
+    text-align: right !important;
+  }
+  
+  .mobile-td-mkt {
     display: none;
-}
-
-@media only screen and (max-width: 1100px){
-    .td-icon{
-        display: none;
+  }
+  
+  @media only screen and (max-width: 1100px) {
+    .td-icon {
+      display: none;
     }
-}
-
-@media only screen and (max-width: 1000px){
-    .td-total-volume{
-        display: none;
+  }
+  
+  @media only screen and (max-width: 1000px) {
+    .td-total-volume {
+      display: none;
     }
-}
-
-@media only screen and (max-width: 800px){
-    .desktop-td-mkt{
-        display: none;
+  }
+  
+  @media only screen and (max-width: 900px) {
+    .td-chip-icon {
+      display: none;
     }
-
-    .mobile-td-mkt{
-        display: block;
+  
+    .list-row td {
+      font-size: 0.7rem;
     }
-}
+  
+    .td-totalVolume {
+      display: none;
+    }
+  
+    .td-current-price {
+      text-align: center !important;
+    }
+  
+    .list-row {
+      width: 100%;
+      padding: 1.5rem 0;
+    }
+  
+    .coin-image-td {
+      height: 2rem;
+      width: 2rem;
+    }
+  
+    .td-info {
+      width: 6rem !important;
+    }
+  }
+  
+  @media only screen and (max-width: 800px) {
+    .desktop-td-mkt {
+      display: none;
+    }
+  
+    .mobile-td-mkt {
+      display: block;
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .td-marketCap,
+    .td-chip-icon {
+      display: none !important;
+    }
+    .mobile {
+      display: block !important;
+      text-align: left !important;
+    }
+    .list-row td,
+    .td-p {
+      font-size: 0.6rem !important;
+    }
+  
+    .td-info {
+      width: 4rem !important;
+    }
+  
+    .coin-image-td {
+      height: 2rem !important;
+      width: 2rem !important;
+    }
+  }
+  

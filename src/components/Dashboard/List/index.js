@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./styles.css";
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
 import { Tooltip } from '@mui/material';
 import { convertNumber } from '../../../functions/convertNumber';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import StarIcon from '@mui/icons-material/Star';
+import { saveItemToWatchlist } from '../../../functions/saveItemToWatchlist';
+import { removeItemToWatchlist } from '../../../functions/removeItemToWatchlist';
 
 
-function List({coin}) {
+function List({coin, delay}) {
+
+    const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    const [isCoinAdded, setIsCoinAdded] = useState(watchlist.includes(coin.id));
+
+    const handleWatchlistClick = (e) => {
+        e.preventDefault();
+        if (isCoinAdded) {
+          removeItemToWatchlist(e, coin.id, setIsCoinAdded);
+        } else {
+          saveItemToWatchlist(e, coin.id);
+          setIsCoinAdded(true);
+        }
+      };
+
   return (
     <Link to={`/coin/${coin.id}`}>
+    <motion.tr
+        className='list-row'
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: delay }}
+      >
     <tr className='list-row'>
         <Tooltip title="Coin Logo" placement="bottom-start">
         <td className='td-image'>
@@ -25,10 +50,10 @@ function List({coin}) {
         </td>
         </Tooltip>
         <Tooltip title="Price Change In 24Hrs" placement="bottom-start">
-        {coin.price_change_percentage_24h > 0 ? (
+        {coin?.price_change_percentage_24th > 0 ? (
             <td className='chip-flex'>
                 <div className='price-chip'>
-                {coin?.price_change_percentage_24h?.toFixed(2)}%
+                +{coin?.price_change_percentage_24th?.toFixed(2)}%
                 </div>
                 <div className='icon-chip td-icon'>
                     <TrendingUpRoundedIcon/>
@@ -37,7 +62,7 @@ function List({coin}) {
         ) : (
             <td className='chip-flex'>
                 <div className='price-chip chip-red'>
-                {coin?.price_change_percentage_24h?.toFixed(2)}%
+                {coin?.price_change_percentage_24th?.toFixed(2)}%
                 </div>
                 <div className="icon-chip chip-red td-icon">
                     <TrendingDownRoundedIcon/>
@@ -61,7 +86,7 @@ function List({coin}) {
         <Tooltip title="Total Volume" placement="bottom-end">
         <td>
             <p className='total_volume td-align-right td-total-volume'>
-              ${coin?.total_volume?.toLocaleString()}
+              ${coin?.total_volume?.usd.toLocaleString()}
             </p>
         </td>   
         </Tooltip>
@@ -80,6 +105,15 @@ function List({coin}) {
         </td>
         </Tooltip>
     </tr>
+    <td
+          className={`watchlist-icon ${
+            coin.price_change_percentage_24h < 0 ? "watchlist-icon-red" : ""
+          }`}
+          onClick={handleWatchlistClick}
+        >
+          {isCoinAdded ? <StarIcon /> : <StarOutlineIcon />}
+        </td>
+      </motion.tr>
     </Link>
   )
 }
