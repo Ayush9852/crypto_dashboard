@@ -4,10 +4,12 @@ import Header from '../components/Common/Header';
 import TabsComponent from '../components/Dashboard/Tabs';
 import { useState, useEffect } from 'react';
 import { get100Coins } from '../functions/get100Coins';
+import Footer from '../components/Common/Footer';
   
 function Watchlist() {
     const watchlist = JSON.parse(localStorage.getItem("watchlist"));
     const [coins, setCoins] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
   
     useEffect(() => {
       if (watchlist) {
@@ -20,6 +22,7 @@ function Watchlist() {
       if (allCoins) {
         setCoins(allCoins.filter((coin) => watchlist.includes(coin.id)));
       }
+      setIsLoading(false);
     };
   
     return (
@@ -45,6 +48,7 @@ function Watchlist() {
             </div>
           </div>
         )}
+        <Footer/>
       </div>
     );
   }

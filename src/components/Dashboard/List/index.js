@@ -50,10 +50,10 @@ function List({coin, delay}) {
         </td>
         </Tooltip>
         <Tooltip title="Price Change In 24Hrs" placement="bottom-start">
-        {coin?.price_change_percentage_24th > 0 ? (
+        {coin?.price_change_percentage_24h > 0 ? (
             <td className='chip-flex'>
                 <div className='price-chip'>
-                +{coin?.price_change_percentage_24th?.toFixed(2)}%
+                +{coin?.price_change_percentage_24h?.toFixed(2)}%
                 </div>
                 <div className='icon-chip td-icon'>
                     <TrendingUpRoundedIcon/>
@@ -62,7 +62,7 @@ function List({coin, delay}) {
         ) : (
             <td className='chip-flex'>
                 <div className='price-chip chip-red'>
-                {coin?.price_change_percentage_24th?.toFixed(2)}%
+                {coin?.price_change_percentage_24h?.toFixed(2)}%
                 </div>
                 <div className="icon-chip chip-red td-icon">
                     <TrendingDownRoundedIcon/>
@@ -86,14 +86,22 @@ function List({coin, delay}) {
         <Tooltip title="Total Volume" placement="bottom-end">
         <td>
             <p className='total_volume td-align-right td-total-volume'>
-              ${coin?.total_volume?.usd.toLocaleString()}
+                ${
+                    typeof coin?.total_volume === 'number'
+                    ? coin.total_volume.toLocaleString()
+                    : typeof coin?.total_volume?.usd === 'number'
+                    ? coin.total_volume.usd.toLocaleString()
+                    : ''
+                }
             </p>
-        </td>   
+        </td>
+
+ 
         </Tooltip>
         <Tooltip title="Market Cap" placement="bottom-end">
         <td className='desktop-td-mkt'>   
             <p className='total_volume td-align-right'>
-                ${coin?.market_cap?.toLocaleString()}
+                ${coin.market_cap?.toLocaleString()}
             </p>
         </td>
         </Tooltip>
